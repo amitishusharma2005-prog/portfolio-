@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amit Sharma — Builder, Not Just Coder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#161a1d;
+    --paper:#f2f0e9;
+    --line:#161a1d;
+    --court:#2f6d4f;      /* badminton court green */
+    --shuttle:#e2543a;    /* shuttlecock rust-orange */
+    --mono: 'IBM Plex Mono', monospace;
+    --disp: 'Space Grotesk', sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--disp);
+    line-height:1.5;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--shuttle);color:var(--paper);}
+
+  .wrap{max-width:1100px;margin:0 auto;padding:0 28px;}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:var(--paper);
+    border-bottom:2px solid var(--ink);
+  }
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px;}
+  .logo{font-weight:700;font-size:1.1rem;letter-spacing:-0.02em;}
+  .logo span{color:var(--court);}
+  .navlinks{display:flex;gap:26px;font-family:var(--mono);font-size:0.82rem;text-transform:uppercase;letter-spacing:0.04em;}
+  .navlinks a{text-decoration:none;position:relative;}
+  .navlinks a:hover{color:var(--court);}
+
+  /* HERO */
+  .hero{
+    border-bottom:2px solid var(--ink);
+    padding:90px 0 60px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .wrap{position:relative;z-index:2;}
+  .kicker{
+    font-family:var(--mono);font-size:0.8rem;text-transform:uppercase;
+    letter-spacing:0.12em;color:var(--court);margin-bottom:18px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .kicker::before{content:"●";animation:blink 1.6s infinite;}
+  @keyframes blink{50%{opacity:0.15;}}
+  h1{
+    font-size:clamp(2.6rem,7vw,5rem);
+    font-weight:700;letter-spacing:-0.03em;line-height:0.98;
+    max-width:920px;
+  }
+  h1 em{font-style:normal;color:var(--court);}
+  .hero-sub{
+    max-width:560px;margin-top:26px;font-size:1.05rem;color:#3d4247;
+  }
+  .hero-cta{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.04em;
+    padding:13px 22px;border:2px solid var(--ink);text-decoration:none;
+    display:inline-block;transition:transform .15s ease, background .15s ease, color .15s ease;
+  }
+  .btn.primary{background:var(--ink);color:var(--paper);}
+  .btn.primary:hover{background:var(--court);border-color:var(--court);transform:translate(-2px,-2px);}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper);transform:translate(-2px,-2px);}
+
+  .score-tag{
+    position:absolute;right:28px;top:90px;
+    font-family:var(--mono);font-size:0.75rem;
+    border:2px solid var(--ink);padding:14px 16px;
+    background:var(--paper);transform:rotate(3deg);
+    max-width:170px;
+  }
+  .score-tag b{display:block;color:var(--shuttle);font-size:1.6rem;font-family:var(--disp);}
+
+  /* SECTION LABEL */
+  .sec-label{
+    font-family:var(--mono);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;
+    color:#3d4247;margin-bottom:8px;display:flex;align-items:center;gap:10px;
+  }
+  .sec-label::after{content:"";flex:1;height:1px;background:var(--ink);opacity:0.25;}
+  section{padding:64px 0;border-bottom:2px solid var(--ink);}
+  section:last-of-type{border-bottom:none;}
+  h2{font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:34px;}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:50px;}
+  .about-grid p{color:#3d4247;margin-bottom:16px;max-width:52ch;}
+  .stat-block{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--ink);border:2px solid var(--ink);}
+  .stat{background:var(--paper);padding:20px;}
+  .stat b{display:block;font-size:1.9rem;font-family:var(--disp);}
+  .stat span{font-family:var(--mono);font-size:0.72rem;text-transform:uppercase;color:#3d4247;letter-spacing:0.05em;}
+
+  @media(max-width:760px){.about-grid{grid-template-columns:1fr;}}
+
+  /* SKILLS */
+  .skill-rail{display:flex;flex-wrap:wrap;gap:10px;}
+  .pill{
+    font-family:var(--mono);font-size:0.82rem;border:2px solid var(--ink);
+    padding:9px 16px;border-radius:999px;
+  }
+  .pill.court{background:var(--court);color:var(--paper);border-color:var(--court);}
+
+  /* PROJECTS */
+  .proj-list{display:flex;flex-direction:column;}
+  .proj{
+    display:grid;grid-template-columns:70px 1fr auto;gap:24px;align-items:start;
+    padding:26px 0;border-top:1px solid var(--ink);opacity:0.95;
+  }
+  .proj:first-child{border-top:none;}
+  .proj-num{font-family:var(--mono);color:var(--shuttle);font-weight:600;}
+  .proj h3{font-size:1.25rem;margin-bottom:6px;}
+  .proj p{color:#3d4247;max-width:60ch;font-size:0.95rem;margin-bottom:10px;}
+  .tags{display:flex;gap:8px;flex-wrap:wrap;}
+  .tag{font-family:var(--mono);font-size:0.7rem;text-transform:uppercase;color:#3d4247;border:1px solid #3d4247;padding:3px 8px;}
+  .proj-link{font-family:var(--mono);font-size:0.82rem;white-space:nowrap;text-decoration:none;border-bottom:1px solid var(--ink);height:fit-content;}
+  .proj-link:hover{color:var(--court);border-color:var(--court);}
+  @media(max-width:640px){.proj{grid-template-columns:40px 1fr;} .proj-link{grid-column:2;}}
+
+  /* JOURNEY / TIMELINE */
+  .timeline{position:relative;padding-left:26px;}
+  .timeline::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--ink);}
+  .tl-item{position:relative;padding-bottom:32px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{content:"";position:absolute;left:-26px;top:4px;width:12px;height:12px;background:var(--shuttle);border:2px solid var(--ink);border-radius:50%;}
+  .tl-item .tl-date{font-family:var(--mono);font-size:0.75rem;color:var(--court);text-transform:uppercase;letter-spacing:0.05em;}
+  .tl-item h4{font-size:1.05rem;margin:4px 0 4px;}
+  .tl-item p{color:#3d4247;font-size:0.92rem;max-width:56ch;}
+
+  /* CONTACT */
+  .contact{
+    display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;
+  }
+  .contact h2{margin-bottom:10px;}
+  .contact p{color:#3d4247;max-width:44ch;}
+  .contact-links{display:flex;flex-direction:column;gap:10px;font-family:var(--mono);}
+  .contact-links a{text-decoration:none;border-bottom:1px solid transparent;}
+  .contact-links a:hover{border-color:var(--court);color:var(--court);}
+
+  footer{padding:22px 0;font-family:var(--mono);font-size:0.75rem;color:#3d4247;display:flex;justify-content:space-between;}
+
+  [data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
+  [data-reveal].in{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">amit<span>.dev</span></div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#journey">Journey</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Available for internships &amp; freelance builds</div>
+    <h1>I build things,<br>then figure out <em>how to sell them.</em></h1>
+    <p class="hero-sub">Amit Sharma — final-year B.Tech CSE student at IIIT Manipur, currently based in Jaipur. Full-stack developer by training, entrepreneur by instinct. This site is Task-1 of my ApexPlanet Full Stack internship: built from scratch, deployed on GitHub Pages, versioned commit by commit.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn primary">See the work</a>
+      <a href="#contact" class="btn ghost">Get in touch</a>
+    </div>
+  </div>
+  <div class="score-tag">GATE 2026<b>620</b>aiming 800+ in 2027</div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-label">01 — About</div>
+    <h2>Two tracks, one player.</h2>
+    <div class="about-grid">
+      <div data-reveal>
+        <p>I'm wrapping up my B.Tech in Computer Science at IIIT Manipur, but I've spent most of my final year treating "employee" as one option among several, not the default. I'm actively scoping a venture in the transport/logistics space, starting lean as a broker-aggregator before scaling into asset ownership.</p>
+        <p>On the technical side, I'm building depth in full-stack web development — PHP, MySQL, and the JS ecosystem — because whatever I end up building, I want to be able to build it myself first.</p>
+        <p>Off-screen: competitive badminton player, early-riser in training, and someone who reads founder stories the way other people read novels.</p>
+      </div>
+      <div class="stat-block" data-reveal>
+        <div class="stat"><b>60</b><span>Day internship</span></div>
+        <div class="stat"><b>5</b><span>Capstone tasks</span></div>
+        <div class="stat"><b>620</b><span>GATE CSE 2026</span></div>
+        <div class="stat"><b>2027</b><span>Grad year</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-label">02 — Stack</div>
+    <h2>What I'm working with.</h2>
+    <div class="skill-rail">
+      <div class="pill court">HTML5</div>
+      <div class="pill court">CSS3 / Flexbox / Grid</div>
+      <div class="pill court">JavaScript</div>
+      <div class="pill">PHP</div>
+      <div class="pill">MySQL</div>
+      <div class="pill">Git &amp; GitHub</div>
+      <div class="pill">Bootstrap 5</div>
+      <div class="pill">REST / AJAX</div>
+      <div class="pill">phpMyAdmin</div>
+      <div class="pill">Responsive Design</div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-label">03 — Internship Build Log</div>
+    <h2>Tracking every task, live.</h2>
+    <div class="proj-list">
+      <div class="proj" data-reveal>
+        <div class="proj-num">01</div>
+        <div>
+          <h3>Portfolio Website — this site</h3>
+          <p>Foundation task: environment setup (XAMPP, Git, GitHub), HTML5 structure, CSS3 layout with Flexbox/Grid, and a working local PHP + MySQL stack.</p>
+          <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span><span class="tag">Git</span></div>
+        </div>
+        <a href="#" class="proj-link">View repo →</a>
+      </div>
+      <div class="proj" data-reveal>
+        <div class="proj-num">02</div>
+        <div>
+          <h3>Login &amp; Registration UI</h3>
+          <p>Bootstrap 5 responsive auth interface with client-side validation, password match check, and AJAX-based dummy availability checks.</p>
+          <div class="tags"><span class="tag">Bootstrap</span><span class="tag">AJAX</span></div>
+        </div>
+        <a href="#" class="proj-link">Upcoming</a>
+      </div>
+      <div class="proj" data-reveal>
+        <div class="proj-num">03</div>
+        <div>
+          <h3>User Management System</h3>
+          <p>Full CRUD with session-based auth, role-based login, hashed passwords, and profile picture upload with server-side validation.</p>
+          <div class="tags"><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">Auth</span></div>
+        </div>
+        <a href="#" class="proj-link">Upcoming</a>
+      </div>
+      <div class="proj" data-reveal>
+        <div class="proj-num">04</div>
+        <div>
+          <h3>Real-World Web App</h3>
+          <p>A complete application with admin panel, dashboards, search/filter/pagination, and a properly normalized database schema.</p>
+          <div class="tags"><span class="tag">Full-Stack</span><span class="tag">Admin Panel</span></div>
+        </div>
+        <a href="#" class="proj-link">Upcoming</a>
+      </div>
+      <div class="proj" data-reveal>
+        <div class="proj-num">05</div>
+        <div>
+          <h3>Capstone: Deployed Project</h3>
+          <p>Independently designed and live-deployed capstone with OTP-based auth, Chart.js analytics, and a full project report.</p>
+          <div class="tags"><span class="tag">Deployment</span><span class="tag">Capstone</span></div>
+        </div>
+        <a href="#" class="proj-link">Upcoming</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="journey">
+  <div class="wrap">
+    <div class="sec-label">04 — Journey</div>
+    <h2>How I got here.</h2>
+    <div class="timeline">
+      <div class="tl-item" data-reveal>
+        <div class="tl-date">2022 — Present</div>
+        <h4>B.Tech Computer Science, IIIT Manipur</h4>
+        <p>Final-year student focused on full-stack development, with a parallel interest in how software teams turn into businesses.</p>
+      </div>
+      <div class="tl-item" data-reveal>
+        <div class="tl-date">2026</div>
+        <h4>GATE CSE — scored 620</h4>
+        <p>Currently evaluating a GATE 2027 retake targeting 800+, alongside continued upskilling and interview preparation.</p>
+      </div>
+      <div class="tl-item" data-reveal>
+        <div class="tl-date">2026</div>
+        <h4>Scoping a transport-sector venture</h4>
+        <p>Researching Indian government funding routes (Startup India, MSME/Udyam, PMEGP) and planning a lean entry as a transport broker/aggregator.</p>
+      </div>
+      <div class="tl-item" data-reveal>
+        <div class="tl-date">Now</div>
+        <h4>ApexPlanet Full Stack Internship</h4>
+        <p>60-day PHP/MySQL internship — this site is the Task-1 deliverable, built and deployed as the first commit in a longer build log.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact">
+    <div>
+      <div class="sec-label">05 — Contact</div>
+      <h2>Let's talk.</h2>
+      <p>Open to internship opportunities, freelance web projects, and conversations about early-stage logistics ventures in India.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:your.email@example.com">your.email@example.com</a>
+      <a href="https://github.com/yourusername" target="_blank" rel="noopener">github.com/yourusername</a>
+      <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">linkedin.com/in/yourusername</a>
+      <a href="#" >Jaipur, Rajasthan, India</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;width:100%;">
+    <span>© 2026 Amit Sharma</span>
+    <span>Built for ApexPlanet Internship — Task 1</span>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:0.15});
+  document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
